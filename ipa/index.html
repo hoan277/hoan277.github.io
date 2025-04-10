@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="multi-lang-ipa.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // Ví dụ sử dụng
+        const converter = new HC_IPA_CONVERTER();
+        // Bật debug nếu cần
+        converter.debug = false; // Đặt thành true để hiển thị log
+        console.log(converter.convert("hello", 'en'));
+        console.log(converter.convert("hello world", 'en'));
+        console.log(converter.convert("hello ความสัมพันธ์มิตรภาพ"));
+        console.log(converter.convert("วันปลดปล่อยภาคใต้",'th'));
+    </script>
+</body>
+
+</html>
