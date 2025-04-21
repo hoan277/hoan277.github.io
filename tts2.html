@@ -43,6 +43,16 @@
                 <input type="range" class="form-range" id="rateInput" v-model="state.rate" min="0" max="100">
                 <div>Giá trị hiện tại: {{ state.rate }}%</div>
             </div>
+            <div class="mb-3">
+                <label for="pitchInput" class="form-label">Độ cao (Pitch):</label>
+                <input type="range" class="form-range" id="pitchInput" v-model="state.pitch" min="-50" max="50">
+                <div>Giá trị hiện tại: {{ state.pitch }}Hz</div>
+            </div>
+            <div class="mb-3">
+                <label for="volumeInput" class="form-label">Âm lượng (Volume):</label>
+                <input type="range" class="form-range" id="volumeInput" v-model="state.volume" min="0" max="100">
+                <div>Giá trị hiện tại: {{ state.volume }}%</div>
+            </div>
             <div class="d-flex gap-2 justify-content-center">
                 <button @click="speak" class="btn btn-primary">
                     <i class="fas fa-play"></i> Phát
@@ -67,7 +77,7 @@
 
         const ssmlText = (state, voiceName) => {
             const requestId = guid();
-            let ssml = `X-RequestId:${requestId}\r\nContent-Type:application/ssml+xml\r\nX-Timestamp:${new Date().toISOString()}\r\nPath:ssml\r\n\r\n<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' xml:lang='${state.lan}'><voice name='${voiceName}'><prosody pitch='${numToString(state.pitch)}Hz' rate ='${numToString(state.rate)}%' volume='${numToString(state.volume)}%'>${state.text}</prosody></voice></speak>`;
+            let ssml = `X-RequestId:${requestId}\r\nContent-Type:application/ssml+xml\r\nX-Timestamp:${new Date().toISOString()}\r\nPath:ssml\r\n\r\n<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' xml:lang='${state.lan}'><voice name='${voiceName}'><prosody pitch='${numToString(state.pitch)}Hz' rate='${numToString(state.rate)}%' volume='${numToString(state.volume)}%'>${state.text}</prosody></voice></speak>`;
             console.log(`ssmlText: ${ssml}`);
             return ssml;
         };
@@ -86,9 +96,9 @@
             setup() {
                 const state = reactive({
                     text: '',
-                    pitch: 0,
-                    rate: 30,
-                    volume: 0,
+                    pitch: 0, // Giá trị mặc định cho pitch
+                    rate: 30, // Giá trị mặc định cho rate
+                    volume: 50, // Giá trị mặc định cho volume
                     lan: 'zh-CN',
                     voiceName: 'Microsoft Server Speech Text to Speech Voice (zh-CN, XiaoxiaoNeural)' // Giá trị mặc định
                 });
