@@ -1,1 +1,30 @@
-Xin chào
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thư viện đa ngữ</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/16/5868/5868632.png" type="image/x-icon">
+</head>
+
+<body style=" margin: 0; padding: 0; height: 100vh;">
+  <iframe
+    src="https://script.google.com/macros/s/AKfycbzHbfd-E6hvtEsYrPcvYYH4HQHGnTg099UUOsmGepZuoEwdIODBoigEkL-CdcW1fzTfTA/exec"
+    frameborder="0" width="100%" height="100%"></iframe>
+</body>
+
+<script>
+    if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+        .register("./sw.js")
+        .then((reg) => console.log("Đăng ký SW thành công: ", reg))
+        .catch((err) => console.error("Lỗi khi cố gắng đăng ký SW: ", err));
+    } else {
+        console.log("Không có serviceWorker");
+    }
+</script>
+
+</html>
