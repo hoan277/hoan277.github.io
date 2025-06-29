@@ -4,16 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thư viện Đa Ngữ | Từ Vựng Tiếng Nhật, Tiếng Trung & Chủ Đề</title>
-  <meta name="description" content="Khám phá Thư viện Đa Ngữ của Hoan277: Nguồn tài liệu từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (HSK6) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng ngôn ngữ của bạn ngay hôm nay!">
-  <meta name="keywords" content="thư viện đa ngữ, từ vựng tiếng Nhật, Minna no Nihongo, từ vựng tiếng Trung, HSK6, học tiếng Nhật, học tiếng Trung, từ vựng theo chủ đề, tài liệu học ngôn ngữ, miễn phí">
+  <title>Thư viện đa ngữ | Từ Vựng Tiếng Nhật, Tiếng Trung & Chủ Đề</title>
+  <meta name="description" content="Khám phá Thư viện đa ngữ của Hoan277: Nguồn tài liệu từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (HSK6) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng ngôn ngữ của bạn ngay hôm nay!">
+  <meta name="keywords" content="Thư viện đa ngữ, từ vựng tiếng Nhật, Minna no Nihongo, từ vựng tiếng Trung, HSK6, học tiếng Nhật, học tiếng Trung, từ vựng theo chủ đề, tài liệu học ngôn ngữ, miễn phí">
   <meta name="author" content="Hoan277">
 
-  <meta property="og:title" content="Thư viện Đa Ngữ | Từ Vựng Tiếng Nhật, Tiếng Trung (HSK6, Minna) & Chủ Đề">
-  <meta property="og:description" content="Khám phá Thư viện Đa Ngữ của Hoan277: Nguồn tài liệu từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (HSK6) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng ngôn ngữ của bạn ngay hôm nay!">
+  <meta property="og:title" content="Thư viện đa ngữ | Từ Vựng Tiếng Nhật, Tiếng Trung & Chủ Đề">
+  <meta property="og:description" content="Khám phá Thư viện đa ngữ của Hoan277: Nguồn tài liệu từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (HSK6) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng ngôn ngữ của bạn ngay hôm nay!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hoan277.github.io"> 
-  <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/5868/5868632.png"> <meta property="og:site_name" content="Thư viện Đa Ngữ">
+  <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/5868/5868632.png"> 
+  <meta property="og:site_name" content="Thư viện đa ngữ">
   <meta property="og:locale" content="vi_VN">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,11 +25,76 @@
   <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/16/5868/5868632.png" type="image/x-icon">
 </head>
 
-<body style=" margin: 0; padding: 0; height: 100vh;">
+<body style="margin: 0; padding: 0; height: 100vh; position: relative;">
+  <!-- Loading overlay -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <p style="margin-top: 10px;">Đang tải nội dung...</p>
+  </div>
+
+  <!-- Iframe -->
   <iframe
+    id="main-iframe"
     src="https://script.google.com/macros/s/AKfycbzHbfd-E6hvtEsYrPcvYYH4HQHGnTg099UUOsmGepZuoEwdIODBoigEkL-CdcW1fzTfTA/exec"
-    frameborder="0" width="100%" height="100%" allow="clipboard-read; clipboard-write *"></iframe>
+    frameborder="0"
+    width="100%"
+    height="100%"
+    allow="clipboard-read; clipboard-write *">
+  </iframe>
+
+  <!-- CSS -->
+  <style>
+    /* Overlay chứa spinner */
+    #loading-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      font-family: sans-serif;
+    }
+
+    #loading-overlay.fade-out {
+      opacity: 0;
+    }
+
+    /* CSS Spinner */
+    .spinner {
+      border: 8px solid #f3f3f3; /* màu nền */
+      border-top: 8px solid #3498db; /* màu xoay */
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- JS -->
+  <script>
+    const overlay = document.getElementById("loading-overlay");
+    const iframe = document.getElementById("main-iframe");
+
+    iframe.onload = () => {
+      overlay.classList.add("fade-out");
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 500); // thời gian khớp với transition
+    };
+  </script>
 </body>
+
+
 
 <script>
     if ("serviceWorker" in navigator) {
