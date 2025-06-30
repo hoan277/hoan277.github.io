@@ -361,6 +361,22 @@
         });
       }
     }
+
+    window.addEventListener('message', event => {
+      if (event.data.type === 'changeURL') {
+        console.log('Nhận được postMessage:', event);
+        console.log('URL nhận được:', event.data.url);
+        try {
+          window.history.pushState({}, '', event.data.url);
+          console.log('Đã thay đổi URL thành:', event.data.url);
+          gtag('event', 'page_view', { page_path: event.data.url });
+          console.log('Đã gửi sự kiện page_view đến GA:', event.data.url);
+        } catch (error) {
+          console.error('❌ Lỗi khi chạy history.pushState hoặc GA:', error);
+        }
+      }
+    });
+
   </script>
 </body>
 
