@@ -1,8 +1,10 @@
 {
   "name": "Thư viện đa ngữ",
   "short_name": "Thư viện đa ngữ",
-  "start_url": "./?utm_source=web_app_manifest",
+  "start_url": "index.html",
   "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/16/5868/5868632.png",
