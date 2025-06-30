@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thư viện đa ngữ | Từ vựng chủ đề tiếng Nhật, tiếng Trung & một số giáo trình</title>
   <meta name="description"
-  content="Khám phá Thư viện đa ngữ: Nguồn từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (Hán ngữ 6 quyển) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng vốn từ vựng của bạn!">
+    content="Khám phá Thư viện đa ngữ: Nguồn từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (Hán ngữ 6 quyển) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng vốn từ vựng của bạn!">
   <meta name="keywords"
     content="Thư viện đa ngữ, từ vựng tiếng Nhật, Minna no Nihongo, từ vựng tiếng Trung, HSK6, học tiếng Nhật, học tiếng Trung, từ vựng theo chủ đề, tài liệu học ngôn ngữ, miễn phí">
   <meta name="author" content="Hoan277">
-  
+
   <meta property="og:title" content="Thư viện đa ngữ | Từ Vựng Tiếng Nhật, Tiếng Trung & Chủ Đề">
   <meta property="og:description"
-  content="Khám phá Thư viện đa ngữ: Nguồn từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (Hán ngữ 6 quyển) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng vốn từ vựng của bạn!">
+    content="Khám phá Thư viện đa ngữ: Nguồn từ vựng tiếng Nhật (Minna no Nihongo), tiếng Trung (Hán ngữ 6 quyển) và từ vựng theo chủ đề phong phú, miễn phí. Nâng cao kỹ năng vốn từ vựng của bạn!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hoan277.github.io">
   <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/5868/5868632.png">
   <meta property="og:site_name" content="Thư viện đa ngữ">
   <meta property="og:locale" content="vi_VN">
-  
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Permissions-Policy" content="*">
@@ -36,7 +36,8 @@
   <!-- Iframe -->
   <iframe id="main-iframe"
     src="https://script.google.com/macros/s/AKfycbzHbfd-E6hvtEsYrPcvYYH4HQHGnTg099UUOsmGepZuoEwdIODBoigEkL-CdcW1fzTfTA/exec"
-    frameborder="0" width="100%" height="100%" allow="clipboard-read *; clipboard-write *; fullscreen *; microphone *; camera *; geolocation *; web-share *; microphone *">
+    frameborder="0" width="100%" height="100%"
+    allow="clipboard-read *; clipboard-write *; fullscreen *; microphone *; camera *; geolocation *; web-share *; microphone *">
   </iframe>
   <!-- CSS -->
   <style>
@@ -324,6 +325,16 @@
     iframe.onload = function () {
       loadingMain.style.display = "none";
     };
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./sw.js")
+        .then((reg) => console.log("Đăng ký SW thành công: ", reg))
+        .catch((err) => console.error("Lỗi khi cố gắng đăng ký SW: ", err));
+    } else {
+      console.log("Không có serviceWorker");
+    }
   </script>
 </body>
 
