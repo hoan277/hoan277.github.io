@@ -325,8 +325,7 @@
     iframe.onload = function () {
       loadingMain.style.display = "none";
     };
-  </script>
-  <script>
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("./sw.js")
@@ -362,20 +361,25 @@
       }
     }
 
-    window.addEventListener('message', event => {
-      if (event.data.type === 'changeURL') {
-        console.log('Nhận được postMessage:', event);
-        console.log('URL nhận được:', event.data.url);
-        try {
-          window.history.pushState({}, '', event.data.url);
-          console.log('Đã thay đổi URL thành:', event.data.url);
-          gtag('event', 'page_view', { page_path: event.data.url });
-          console.log('Đã gửi sự kiện page_view đến GA:', event.data.url);
-        } catch (error) {
-          console.error('❌ Lỗi khi chạy history.pushState hoặc GA:', error);
+    function checkWindowName() {
+      try {
+        const selectedSheet = iframe?.contentWindow?.name || "";
+        if (selectedSheet) {
+          console.log('Selected sheet từ window.name:', selectedSheet);
+          const urlPath = `/sheet/${selectedSheet}`;
+          window.history.pushState({ urlPath }, '', urlPath);
+          console.log('Đã thay đổi URL thành:', urlPath);
+          // Gửi sự kiện GA (nếu cần)
+          gtag('event', 'page_view', { page_path: urlPath });
+          console.log('Đã gửi sự kiện page_view đến GA:', urlPath);
         }
+      } catch (error) {
+        console.error('❌ Lỗi khi đọc window.name:', error);
       }
-    });
+    }
+
+    // Kiểm tra window.name định kỳ
+    setInterval(checkWindowName, 1000);
 
   </script>
 </body>
