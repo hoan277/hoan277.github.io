@@ -361,25 +361,34 @@
       }
     }
 
-    function checkWindowName() {
+    function checkIframeHash() {
       try {
-        const selectedSheet = iframe?.contentWindow?.name || "";
-        if (selectedSheet) {
-          console.log('Selected sheet từ window.name:', selectedSheet);
-          const urlPath = `/sheet/${selectedSheet}`;
-          window.history.pushState({ urlPath }, '', urlPath);
-          console.log('Đã thay đổi URL thành:', urlPath);
-          // Gửi sự kiện GA (nếu cần)
-          gtag('event', 'page_view', { page_path: urlPath });
-          console.log('Đã gửi sự kiện page_view đến GA:', urlPath);
+        const iframeUrl = new URL(iframe.src);
+        const hash = iframeUrl.hash; // Lấy phần hash (e.g., #selected_sheet=Gỗ)
+        if (hash) {
+          const params = new URLSearchParams(hash.replace('#', ''));
+          const selectedSheet = params.get('selected_sheet');
+          if (selectedSheet) {
+            console.log('Selected sheet từ hash:', selectedSheet);
+            const urlPath = `/sheet/${selectedSheet}`;
+            window.history.pushState({ urlPath }, '', urlPath);
+            console.log('Đã thay đổi URL thành:', urlPath);
+            // Gửi sự kiện GA (nếu cần)
+            gtag('event', 'page_view', { page_path: urlPath });
+            console.log('Đã gửi sự kiện page_view đến GA:', urlPath);
+          }
         }
       } catch (error) {
-        console.error('❌ Lỗi khi đọc window.name:', error);
+        console.error('❌ Lỗi khi đọc hash iframe:', error);
       }
     }
 
-    // Kiểm tra window.name định kỳ
-    setInterval(checkWindowName, 1000);
+    // Kiểm tra hash định kỳ
+    setInterval(checkIframeHash, 1000);
+
+    // Hoặc sử dụng MutationObserver để theo dõi thay đổi src
+    const observer = new MutationObserver(checkIframeHash);
+    observer.observe(iframe, { attributes: true, attributeFilter: ['src'] });
 
   </script>
 </body>
