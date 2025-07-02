@@ -344,7 +344,7 @@
           const deferredPrompt = e;
           const installButton = document.createElement('button');
           installButton.textContent = 'Cài đặt Thư viện đa ngữ';
-          installButton.style.cssText = 'position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; background-image: linear-gradient(to right, #ff99cc, #ff66b3); color: white;';
+          installButton.style.cssText = 'position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; background-image: linear-gradient(to right, #ff99cc, #ff66b3); color: white;';
           document.body.appendChild(installButton);
           installButton.addEventListener('click', () => {
             deferredPrompt.prompt();
