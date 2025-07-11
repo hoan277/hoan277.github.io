@@ -1,40 +1,25 @@
 {
   "name": "Thư viện đa ngữ",
   "short_name": "Thư viện đa ngữ",
-  "start_url": "index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#121212",
   "theme_color": "#000000",
+  "orientation": "any",
+  "lang": "vi",
   "icons": [
     {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "16x16",
-      "type": "image/png"
+      "src": "https://hoan277.github.io/images/favico.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "24x24",
-      "type": "image/png"
-    },
-    {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "64x64",
-      "type": "image/png"
-    },
-    {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "https://hoan277.github.io/favico.png",
-      "sizes": "256x256",
-      "type": "image/png"
+      "src": "https://hoan277.github.io/images/favico.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
