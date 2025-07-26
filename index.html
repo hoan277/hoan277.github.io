@@ -306,7 +306,6 @@
     }
 
     #btnInstall {
-      display: none;
       position: fixed;
       bottom: 10px;
       left: 50%;
@@ -316,7 +315,22 @@
       border-radius: 5px;
       cursor: pointer;
       background-image: linear-gradient(to right, #f9c, #ff66b3);
-      color: #fff
+      color: #fff;
+
+      /* Fix CLS */
+      min-height: 40px;
+      min-width: 240px;
+
+      /* Ban đầu ẩn nhưng vẫn chiếm chỗ */
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+
+    #btnInstall.visible {
+      visibility: visible;
+      opacity: 1;
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -387,10 +401,41 @@
     src="https://script.google.com/macros/s/AKfycbzHbfd-E6hvtEsYrPcvYYH4HQHGnTg099UUOsmGepZuoEwdIODBoigEkL-CdcW1fzTfTA/exec"
     allow="accelerometer *; autoplay *; camera *; clipboard-read *; clipboard-write *; encrypted-media *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *; midi *; payment *; picture-in-picture *; screen-wake-lock *; sync-xhr *; usb *; web-share *;">
   </iframe>
-  <button id="btnInstall"
-    style="display:none;position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); padding: 10px; border: none; border-radius: 5px; cursor: pointer; background-image: linear-gradient(to right, #f9c, #ff66b3); color: #fff; display: none;">Cài
-    đặt Thư viện đa ngữ</button>
-  <script>document.addEventListener("DOMContentLoaded", () => { let e = document.getElementById("app"), t = document.getElementById("main-iframe"), a = document.getElementById("btnInstall"); if (t.onload = () => { e.style.display = "none" }, "serviceWorker" in navigator && navigator.serviceWorker.register("./sw.js").then(e => console.log("✅ Đăng k\xfd SW th\xe0nh c\xf4ng:", e)).catch(e => console.error("❌ Lỗi đăng k\xfd SW:", e)), !window.matchMedia("(display-mode: standalone)").matches) { let n; window.addEventListener("beforeinstallprompt", e => { n = e,e.preventDefault(), a.style.display = "block" }), a.addEventListener("click", async () => { n && (n.prompt(), await n.userChoice, n = null, a.remove()) }) } function s() { try { let e = new URL(t.src), a = e.searchParams.get("selected_sheet") || e.hash.match(/sheet-([^#]+)/)?.[1]; if (a) { localStorage.setItem("selected_sheet", a); let n = `/sheet/${a}`; window.history.pushState({ urlPath: n }, "", n), "function" == typeof gtag && gtag("event", "page_view", { page_path: n }) } } catch (s) { console.error("❌ Lỗi đọc URL iframe:", s) } } setInterval(s, 1e3); let r = new MutationObserver(s); r.observe(t, { attributes: !0, attributeFilter: ["src"] }) });</script>
+  <button id="btnInstall">Cài đặt Thư viện đa ngữ</button>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const installBtn = document.getElementById("btnInstall");
+      let deferredPrompt = null;
+
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if (!isStandalone) {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+
+          // Không dùng display: block, mà toggle class để tránh layout shift
+          installBtn.classList.add("visible");
+        });
+
+        installBtn.addEventListener('click', async () => {
+          if (!deferredPrompt) return;
+
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+
+          if (outcome === 'accepted') {
+            console.log("✅ Người dùng đồng ý cài đặt");
+          } else {
+            console.log("❌ Người dùng từ chối");
+          }
+
+          installBtn.classList.remove("visible");
+          deferredPrompt = null;
+        });
+      }
+    });
+
+  </script>
 </body>
 
 </html>
