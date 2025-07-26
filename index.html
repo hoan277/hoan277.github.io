@@ -317,20 +317,19 @@
       background-image: linear-gradient(to right, #f9c, #ff66b3);
       color: #fff;
 
-      /* Fix CLS */
+      min-width: 200px;
       min-height: 40px;
-      min-width: 240px;
 
-      /* Ban đầu ẩn nhưng vẫn chiếm chỗ */
-      visibility: hidden;
+      /* Ẩn nhưng không gây layout shift */
       opacity: 0;
+      visibility: hidden;
       transition: opacity 0.3s ease;
       z-index: 9999;
     }
 
     #btnInstall.visible {
-      visibility: visible;
       opacity: 1;
+      visibility: visible;
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -407,33 +406,31 @@
       const installBtn = document.getElementById("btnInstall");
       let deferredPrompt = null;
 
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if (!isStandalone) {
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        // KHÔNG gọi e.preventDefault() → để Chrome tự hiện nút
+        deferredPrompt = e;
 
-          // Không dùng display: block, mà toggle class để tránh layout shift
-          installBtn.classList.add("visible");
-        });
+        // Hiện thêm nút custom nếu muốn
+        installBtn.classList.add("visible");
+      });
 
-        installBtn.addEventListener('click', async () => {
-          if (!deferredPrompt) return;
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
 
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt.prompt();
 
-          if (outcome === 'accepted') {
-            console.log("✅ Người dùng đồng ý cài đặt");
-          } else {
-            console.log("❌ Người dùng từ chối");
-          }
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+          console.log("✅ Người dùng đã cài");
+        } else {
+          console.log("❌ Người dùng từ chối");
+        }
 
-          installBtn.classList.remove("visible");
-          deferredPrompt = null;
-        });
-      }
+        installBtn.classList.remove("visible");
+        deferredPrompt = null;
+      });
     });
+
 
   </script>
 </body>
