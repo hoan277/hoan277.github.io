@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hoan277.github.io/sitemap.xml
